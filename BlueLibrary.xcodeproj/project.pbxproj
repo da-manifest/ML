@@ -18,6 +18,10 @@
 		450EECD617A9B03A00957F62 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 450EECD517A9B03A00957F62 /* Default-568h@2x.png */; };
 		450EECD917A9B03A00957F62 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450EECD817A9B03A00957F62 /* ViewController.m */; };
 		450EECE517A9B05E00957F62 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 450EECE417A9B05E00957F62 /* HTTPClient.m */; };
+		844C93C01D33900E001F4ED4 /* MyAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93BF1D33900E001F4ED4 /* MyAlbum.m */; };
+		844C93C31D3393A7001F4ED4 /* MyAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93C21D3393A7001F4ED4 /* MyAlbumView.m */; };
+		844C93C91D33A18C001F4ED4 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93C81D33A18C001F4ED4 /* LibraryAPI.m */; };
+		844C93CD1D33A7A4001F4ED4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93CC1D33A7A4001F4ED4 /* DataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,14 @@
 		450EECD817A9B03A00957F62 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		450EECE317A9B05E00957F62 /* HTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
 		450EECE417A9B05E00957F62 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
+		844C93BE1D33900E001F4ED4 /* MyAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyAlbum.h; path = ../MyAlbum.h; sourceTree = "<group>"; };
+		844C93BF1D33900E001F4ED4 /* MyAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyAlbum.m; path = ../MyAlbum.m; sourceTree = "<group>"; };
+		844C93C11D3393A7001F4ED4 /* MyAlbumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyAlbumView.h; path = ../MyAlbumView.h; sourceTree = "<group>"; };
+		844C93C21D3393A7001F4ED4 /* MyAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyAlbumView.m; path = ../MyAlbumView.m; sourceTree = "<group>"; };
+		844C93C71D33A18C001F4ED4 /* LibraryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryAPI.h; sourceTree = "<group>"; };
+		844C93C81D33A18C001F4ED4 /* LibraryAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryAPI.m; sourceTree = "<group>"; };
+		844C93CB1D33A7A4001F4ED4 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		844C93CC1D33A7A4001F4ED4 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,11 +96,12 @@
 		450EECC517A9B03A00957F62 /* BlueLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				844C93C41D339FF6001F4ED4 /* Model */,
+				844C93C51D339FFD001F4ED4 /* View */,
+				844C93C61D33A004001F4ED4 /* Controller */,
 				450EECE217A9B04400957F62 /* API */,
-				450EECD717A9B03A00957F62 /* ViewController.h */,
-				450EECD817A9B03A00957F62 /* ViewController.m */,
-				450EECCE17A9B03A00957F62 /* AppDelegate.h */,
 				450EECCF17A9B03A00957F62 /* AppDelegate.m */,
+				450EECCE17A9B03A00957F62 /* AppDelegate.h */,
 				450EECC617A9B03A00957F62 /* Supporting Files */,
 			);
 			path = BlueLibrary;
@@ -111,10 +124,41 @@
 		450EECE217A9B04400957F62 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				844C93C71D33A18C001F4ED4 /* LibraryAPI.h */,
+				844C93C81D33A18C001F4ED4 /* LibraryAPI.m */,
 				450EECE317A9B05E00957F62 /* HTTPClient.h */,
 				450EECE417A9B05E00957F62 /* HTTPClient.m */,
+				844C93CB1D33A7A4001F4ED4 /* DataManager.h */,
+				844C93CC1D33A7A4001F4ED4 /* DataManager.m */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		844C93C41D339FF6001F4ED4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				844C93BE1D33900E001F4ED4 /* MyAlbum.h */,
+				844C93BF1D33900E001F4ED4 /* MyAlbum.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		844C93C51D339FFD001F4ED4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				844C93C11D3393A7001F4ED4 /* MyAlbumView.h */,
+				844C93C21D3393A7001F4ED4 /* MyAlbumView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		844C93C61D33A004001F4ED4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				450EECD717A9B03A00957F62 /* ViewController.h */,
+				450EECD817A9B03A00957F62 /* ViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,7 +227,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				450EECCC17A9B03A00957F62 /* main.m in Sources */,
+				844C93C01D33900E001F4ED4 /* MyAlbum.m in Sources */,
+				844C93C31D3393A7001F4ED4 /* MyAlbumView.m in Sources */,
+				844C93C91D33A18C001F4ED4 /* LibraryAPI.m in Sources */,
 				450EECD017A9B03A00957F62 /* AppDelegate.m in Sources */,
+				844C93CD1D33A7A4001F4ED4 /* DataManager.m in Sources */,
 				450EECD917A9B03A00957F62 /* ViewController.m in Sources */,
 				450EECE517A9B05E00957F62 /* HTTPClient.m in Sources */,
 			);
@@ -300,6 +348,7 @@
 				450EECE117A9B03A00957F62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
