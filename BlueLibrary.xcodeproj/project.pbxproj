@@ -22,6 +22,8 @@
 		844C93C31D3393A7001F4ED4 /* MyAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93C21D3393A7001F4ED4 /* MyAlbumView.m */; };
 		844C93C91D33A18C001F4ED4 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93C81D33A18C001F4ED4 /* LibraryAPI.m */; };
 		844C93CD1D33A7A4001F4ED4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93CC1D33A7A4001F4ED4 /* DataManager.m */; };
+		844C93D01D33E990001F4ED4 /* MyAlbum+TableRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93CF1D33E990001F4ED4 /* MyAlbum+TableRepresentation.m */; };
+		844C93D31D33FE60001F4ED4 /* HorizontalScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 844C93D21D33FE60001F4ED4 /* HorizontalScroll.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,10 @@
 		844C93C81D33A18C001F4ED4 /* LibraryAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryAPI.m; sourceTree = "<group>"; };
 		844C93CB1D33A7A4001F4ED4 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		844C93CC1D33A7A4001F4ED4 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		844C93CE1D33E990001F4ED4 /* MyAlbum+TableRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyAlbum+TableRepresentation.h"; sourceTree = "<group>"; };
+		844C93CF1D33E990001F4ED4 /* MyAlbum+TableRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MyAlbum+TableRepresentation.m"; sourceTree = "<group>"; };
+		844C93D11D33FE60001F4ED4 /* HorizontalScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalScroll.h; sourceTree = "<group>"; };
+		844C93D21D33FE60001F4ED4 /* HorizontalScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalScroll.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +145,8 @@
 			children = (
 				844C93BE1D33900E001F4ED4 /* MyAlbum.h */,
 				844C93BF1D33900E001F4ED4 /* MyAlbum.m */,
+				844C93CE1D33E990001F4ED4 /* MyAlbum+TableRepresentation.h */,
+				844C93CF1D33E990001F4ED4 /* MyAlbum+TableRepresentation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -148,6 +156,8 @@
 			children = (
 				844C93C11D3393A7001F4ED4 /* MyAlbumView.h */,
 				844C93C21D3393A7001F4ED4 /* MyAlbumView.m */,
+				844C93D11D33FE60001F4ED4 /* HorizontalScroll.h */,
+				844C93D21D33FE60001F4ED4 /* HorizontalScroll.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -232,8 +242,10 @@
 				844C93C91D33A18C001F4ED4 /* LibraryAPI.m in Sources */,
 				450EECD017A9B03A00957F62 /* AppDelegate.m in Sources */,
 				844C93CD1D33A7A4001F4ED4 /* DataManager.m in Sources */,
+				844C93D31D33FE60001F4ED4 /* HorizontalScroll.m in Sources */,
 				450EECD917A9B03A00957F62 /* ViewController.m in Sources */,
 				450EECE517A9B05E00957F62 /* HTTPClient.m in Sources */,
+				844C93D01D33E990001F4ED4 /* MyAlbum+TableRepresentation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
