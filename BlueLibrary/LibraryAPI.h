@@ -16,5 +16,6 @@
 -(NSArray *) albums;
 -(void)addAlbum:(MyAlbum *)album atIndex:(NSUInteger)index;
 -(void)deleteAlbumAtIndex:(NSUInteger)index;
+-(void)saveMyAlbums;
 
 @end

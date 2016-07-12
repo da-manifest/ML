@@ -19,6 +19,8 @@
     NSDictionary *currentAlbumData;
     int currentAlbumIndex;
     HorizontalScroll *scroll;
+    UIToolbar *toolBar;
+    NSMutableArray *undoList;
 }
 @end
 
@@ -27,10 +29,22 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     
+    self.view.backgroundColor = [UIColor whiteColor];
     currentAlbumIndex = 0;
+    
+    toolBar = [UIToolbar new];
+    UIBarButtonItem *undoItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoAction)];
+    undoItem.enabled = NO;
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteMyAlbum)];
+    [toolBar setItems:@[undoItem, space, deleteItem]];
+    [self.view addSubview:toolBar];
+    
+    undoList = [NSMutableArray new];
+    
     allAlbums = [[LibraryAPI sharedInstance] albums];
+    
     CGRect frame = CGRectMake(0.0f, 120.0f, self.view.frame.size.width, self.view.frame.size.height - 120.0f);
     dataTable = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     dataTable.delegate = self;
@@ -50,6 +64,12 @@
     [self showDataFromAlbumAtIndex:currentAlbumIndex];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentState) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+-(void)viewWillLayoutSubviews
+{
+    toolBar.frame = CGRectMake(0.0f, self.view.frame.size.height - 40.0f, self.view.frame.size.width, 40.0f);
+    dataTable.frame = CGRectMake(0.0f, 130.0f, self.view.frame.size.width, self.view.frame.size.height - 200.0f);
 }
 
 -(void)showDataFromAlbumAtIndex:(int)albumIndex
@@ -124,6 +144,7 @@
 -(void)saveCurrentState
 {
     [[NSUserDefaults standardUserDefaults] setInteger:currentAlbumIndex forKey:@"currentAlbumIndex"];
+    [[LibraryAPI sharedInstance] saveMyAlbums];
 }
 
 -(void)loadPreviuosState
@@ -139,6 +160,36 @@
 -(void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark add/delete albums, undo actions
+
+-(void)addAlbum:(MyAlbum *)album atIndex:(int)index
+{
+    [[LibraryAPI sharedInstance] addAlbum:album atIndex:index];
+    currentAlbumIndex = index;
+    [self reloadScroll];
+}
+
+-(void)deleteAlbum
+{
+    MyAlbum *deletedAlbum = allAlbums[currentAlbumIndex];
+    
+    NSMethodSignature *signature = [self methodSignatureForSelector:@selector(addAlbum:atIndex:)];
+    NSInvocation *undoDeleteAction = [NSInvocation invocationWithMethodSignature:signature];
+    
+    [undoDeleteAction setTarget:self];
+    [undoDeleteAction setSelector:@selector(addAlbum:atIndex:)];
+    [undoDeleteAction setArgument:&deletedAlbum atIndex:2];
+    [undoDeleteAction setArgument:&currentAlbumIndex atIndex:3];
+    [undoDeleteAction retainArguments];
+    
+    [undoList addObject:undoDeleteAction];
+    
+    [[LibraryAPI sharedInstance] deleteAlbumAtIndex:currentAlbumIndex];
+    [self reloadScroll];
+    
+    [toolBar.items[0] setEnabled:YES];
 }
 
 @end

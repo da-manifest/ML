@@ -21,16 +21,24 @@
     self = [super init];
     if (self)
     {
-        albums = [NSMutableArray arrayWithArray:
-  @[[[MyAlbum alloc] initWithTitle:@"Best of Bowie" andArtist:@"Dawid Bowie" andGenre:@"Pop" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_david_bowie_best_of_bowie.png" andYear:@"1992"],
-    
-    [[MyAlbum alloc] initWithTitle:@"It's My Life" andArtist:@"No Doubt" andGenre:@"Rock" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_no_doubt_its_my_life_bathwater.png" andYear:@"2003"],
-    
-    [[MyAlbum alloc] initWithTitle:@"Nothing Like The Sun" andArtist:@"Sting" andGenre:@"Folk" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_sting_nothing_like_the_sun.png" andYear:@"1999"],
-    
-    [[MyAlbum alloc] initWithTitle:@"Staring at the Sun" andArtist:@"U2" andGenre:@"Jazz" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_u2_staring_at_the_sun.png" andYear:@"2000"],
-    
-    [[MyAlbum alloc] initWithTitle:@"American Pie" andArtist:@"Madonna" andGenre:@"Pop" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_madonna_american_pie.png" andYear:@"2000"]]];
+        NSData *data = [NSData dataWithContentsOfFile:[NSHomeDirectory() stringByAppendingString:@"Documents/myAlbums.bin"]];
+        albums = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if (albums == nil)
+        {
+            albums = [NSMutableArray arrayWithArray:
+                      @[[[MyAlbum alloc] initWithTitle:@"Best of Bowie" andArtist:@"Dawid Bowie" andGenre:@"Pop" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_david_bowie_best_of_bowie.png" andYear:@"1992"],
+                        
+                        [[MyAlbum alloc] initWithTitle:@"It's My Life" andArtist:@"No Doubt" andGenre:@"Rock" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_no_doubt_its_my_life_bathwater.png" andYear:@"2003"],
+                        
+                        [[MyAlbum alloc] initWithTitle:@"Nothing Like The Sun" andArtist:@"Sting" andGenre:@"Folk" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_sting_nothing_like_the_sun.png" andYear:@"1999"],
+                        
+                        [[MyAlbum alloc] initWithTitle:@"Staring at the Sun" andArtist:@"U2" andGenre:@"Jazz" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_u2_staring_at_the_sun.png" andYear:@"2000"],
+                        
+                        [[MyAlbum alloc] initWithTitle:@"American Pie" andArtist:@"Madonna" andGenre:@"Pop" andCoverUrl:@"https://s3.amazonaws.com/CoverProject/album/album_madonna_american_pie.png" andYear:@"2000"]]];
+            
+            [self saveMyAlbums];
+        }
+        
     }
     return self;
 }
@@ -51,6 +59,13 @@
 -(void)deleteAlbumAtIndex:(NSUInteger)index
 {
     [albums removeObjectAtIndex:index];
+}
+
+-(void)saveMyAlbums
+{
+    NSString *fileName = [NSHomeDirectory() stringByAppendingFormat:@"Documents/myAlbums.bin"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:albums];
+    [data writeToFile:fileName atomically:YES];
 }
 
 -(void)saveImage:(UIImage *)image toFile:(NSString *)fileName

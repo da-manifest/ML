@@ -84,6 +84,11 @@
     
 }
 
+-(void)saveMyAlbums
+{
+    [dataManager saveMyAlbums];
+}
+
 -(void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
