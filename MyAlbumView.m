@@ -28,6 +28,7 @@
         indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
         [indicator startAnimating];
         [self addSubview:indicator];
+        [coverImage addObserver:self forKeyPath:@"image" options:0 context:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"BLDownloadImageNotification" object:self userInfo:@{@"coverUrl":albumCover, @"imageView":coverImage}];
         
         
@@ -35,6 +36,15 @@
     return self;
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"image"])[indicator stopAnimating];
+}
+
+-(void)dealloc
+{
+    [coverImage removeObserver:self forKeyPath:@"image"];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -42,7 +52,5 @@
     // Drawing code
 }
 */
-
-
 
 @end

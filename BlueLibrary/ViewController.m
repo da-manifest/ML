@@ -38,6 +38,8 @@
     dataTable.backgroundView = nil;
     [self.view addSubview:dataTable];
     
+    [self loadPreviuosState];
+    
     scroll = [[HorizontalScroll alloc] initWithFrame:CGRectMake(0.0f, 20.0f, self.view.frame.size.width, 120.0f)];
     scroll.backgroundColor = [UIColor lightGrayColor];
     scroll.delegate = self;
@@ -46,6 +48,8 @@
     [self reloadScroll];
     
     [self showDataFromAlbumAtIndex:currentAlbumIndex];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentState) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 -(void)showDataFromAlbumAtIndex:(int)albumIndex
@@ -113,6 +117,28 @@
     
     [scroll reload];
     [self showDataFromAlbumAtIndex:currentAlbumIndex];
+}
+
+#pragma mark save/load current application state
+
+-(void)saveCurrentState
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:currentAlbumIndex forKey:@"currentAlbumIndex"];
+}
+
+-(void)loadPreviuosState
+{
+    currentAlbumIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentAlbumIndex"];
+}
+
+-(NSInteger)startViewIndexForHorizontalScroll:(HorizontalScroll *)scroll
+{
+    return currentAlbumIndex;
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
