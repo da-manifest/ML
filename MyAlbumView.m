@@ -1,9 +1,9 @@
 //
 //  MyAlbumView.m
-//  BlueLibrary
+//  ML
 //
 //  Created by Admin on 11/07/16.
-//  Copyright © 2016 Eli Ganem. All rights reserved.
+//  Copyright © 2016 Admin. All rights reserved.
 //
 
 #import "MyAlbumView.h"
@@ -25,9 +25,12 @@
         
         indicator = [UIActivityIndicatorView new];
         indicator.center = self.center;
-        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
         [indicator stopAnimating];
         [self addSubview:indicator];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BLDownloadImageNotification" object:self userInfo:@{@"coverUrl":albumCover, @"imageView":coverImage}];
+        
+        
     }
     return self;
 }

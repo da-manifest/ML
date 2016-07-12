@@ -9,13 +9,16 @@
 #import "ViewController.h"
 #import "LibraryAPI.h"
 #import "MyAlbum+TableRepresentation.h"
+#import "HorizontalScroll.h"
+#import "MyAlbumView.h"
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, HorizontalScrollDelegate>
 {
     UITableView *dataTable;
     NSArray *allAlbums;
     NSDictionary *currentAlbumData;
     int currentAlbumIndex;
+    HorizontalScroll *scroll;
 }
 @end
 
@@ -24,7 +27,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     currentAlbumIndex = 0;
     allAlbums = [[LibraryAPI sharedInstance] albums];
     CGRect frame = CGRectMake(0.0f, 120.0f, self.view.frame.size.width, self.view.frame.size.height - 120.0f);
@@ -33,6 +37,14 @@
     dataTable.dataSource = self;
     dataTable.backgroundView = nil;
     [self.view addSubview:dataTable];
+    
+    scroll = [[HorizontalScroll alloc] initWithFrame:CGRectMake(0.0f, 20.0f, self.view.frame.size.width, 120.0f)];
+    scroll.backgroundColor = [UIColor lightGrayColor];
+    scroll.delegate = self;
+    [self.view addSubview:scroll];
+    
+    [self reloadScroll];
+    
     [self showDataFromAlbumAtIndex:currentAlbumIndex];
 }
 
@@ -72,6 +84,35 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark HorizontalScrollDelegate metods
+
+-(void)horizontalScroll:(HorizontalScroll *)scroll clickedViewAtIndex:(int)index
+{
+    currentAlbumIndex = index;
+    [self showDataFromAlbumAtIndex:index];
+}
+
+-(NSInteger)numberOfViewsForHorizontalScroll:(HorizontalScroll *)scroll
+{
+    return allAlbums.count;
+}
+
+-(UIView *)horizontalScroll:(HorizontalScroll *)scroll viewAtIndex:(int)index
+{
+    MyAlbum *myAlbum = allAlbums[index];
+    return [[MyAlbumView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 100.0f) andAlbumCover:myAlbum.coverUrl];
+}
+
+-(void)reloadScroll
+{
+    allAlbums = [[LibraryAPI sharedInstance] albums];
+    if (currentAlbumIndex < 0) currentAlbumIndex = 0;
+    else if (currentAlbumIndex >= allAlbums.count) currentAlbumIndex = allAlbums.count - 1;
+    
+    [scroll reload];
+    [self showDataFromAlbumAtIndex:currentAlbumIndex];
 }
 
 @end

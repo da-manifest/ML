@@ -1,9 +1,9 @@
 //
 //  LibraryAPI.m
-//  BlueLibrary
+//  ML
 //
 //  Created by Admin on 11/07/16.
-//  Copyright © 2016 Eli Ganem. All rights reserved.
+//  Copyright © 2016 Admin. All rights reserved.
 //
 
 #import "LibraryAPI.h"
@@ -28,6 +28,7 @@
         dataManager = [DataManager new];
         httpClient = [HTTPClient new];
         isOnline = false;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadImage:) name:@"BLDownloadImageNotification" object:nil];
     }
     return self;
 }
@@ -62,6 +63,30 @@
     if (isOnline) {
         [httpClient postRequest:@"api/deleteAlbum" body:[@(index) description]];
     }
+}
+
+-(void)downloadImage:(NSNotification *)notification
+{
+    NSString *coverUrl = notification.userInfo[@"coverUrl"];
+    UIImageView *imageView = notification.userInfo[@"imageView"];
+    imageView.image = [dataManager getImageFromFile:[coverUrl lastPathComponent]];
+    if (imageView.image == nil)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                       ^{UIImage *image = [httpClient downloadImage:coverUrl];
+                           dispatch_sync(dispatch_get_main_queue(),
+                                         ^{imageView.image = image;
+                               [dataManager saveImage:image toFile:[coverUrl lastPathComponent]];
+                                         });
+                       });
+    }
+    
+    
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
