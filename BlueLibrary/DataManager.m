@@ -1,9 +1,9 @@
 //
 //  DataManager.m
-//  BlueLibrary
+//  ML
 //
 //  Created by Admin on 11/07/16.
-//  Copyright © 2016 Eli Ganem. All rights reserved.
+//  Copyright © 2016 Admin. All rights reserved.
 //
 
 #import "DataManager.h"
@@ -51,6 +51,24 @@
 -(void)deleteAlbumAtIndex:(NSUInteger)index
 {
     [albums removeObjectAtIndex:index];
+}
+
+-(void)saveImage:(UIImage *)image toFile:(NSString *)fileName
+{
+    fileName = [NSHomeDirectory() stringByAppendingFormat:@"Documents/Cover Images/%@", fileName];
+    NSData *data = UIImagePNGRepresentation(image);
+    [data writeToFile:fileName atomically:YES];
+}
+
+-(UIImage *)getImageFromFile:(NSString *)fileName
+{
+    fileName = [NSHomeDirectory()  stringByAppendingFormat:@"Documents/Cover Images/%@", fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:fileName]) {
+        NSData *data = [NSData dataWithContentsOfFile:fileName];
+        return [UIImage imageWithData:data];
+    }
+    return nil;
 }
 
 @end
