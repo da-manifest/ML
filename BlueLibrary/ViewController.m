@@ -37,7 +37,7 @@
     UIBarButtonItem *undoItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoAction)];
     undoItem.enabled = NO;
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteMyAlbum)];
+    UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteAlbum)];
     [toolBar setItems:@[undoItem, space, deleteItem]];
     [self.view addSubview:toolBar];
     
@@ -190,6 +190,17 @@
     [self reloadScroll];
     
     [toolBar.items[0] setEnabled:YES];
+}
+
+-(void) undoAction
+{
+    if (undoList > 0) {
+        NSInvocation *undoAction = [undoList lastObject];
+        [undoList removeLastObject];
+        [undoAction invoke];
+    }
+    
+    if (undoList.count == 0) [toolBar.items[0] setEnabled:NO];
 }
 
 @end
