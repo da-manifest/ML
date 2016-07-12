@@ -45,7 +45,7 @@
         {
             [self.delegate horizontalScroll:self clickedViewAtIndex:index];
             CGPoint offset = CGPointMake(view.frame.origin.x - self.frame.size.width / 2 + view.frame.size.width / 2, 0);
-            [scroll setContentOffset:offset animated:true];
+            [scroll setContentOffset:offset animated:YES];
             break;
         }
     }
@@ -56,7 +56,7 @@
     int xFinal = scroll.contentOffset.x + VIEW_OFFSET / 2 + VIEW_PADDIND;
     int viewIndex = xFinal / (VIEW_DIMENSIONS + 2 * VIEW_PADDIND);
     xFinal = viewIndex * (VIEW_DIMENSIONS + 2 * VIEW_PADDIND);
-    [scroll setContentOffset:CGPointMake(xFinal, 0) animated:true];
+    [scroll setContentOffset:CGPointMake(xFinal, 0) animated:YES];
     [self.delegate horizontalScroll:self clickedViewAtIndex:viewIndex];
 }
 
@@ -95,7 +95,7 @@
     {
         int startView = [self.delegate startViewIndexForHorizontalScroll:self];
         CGPoint offset = CGPointMake(startView * (VIEW_DIMENSIONS + 2 * VIEW_PADDIND), 0);
-        [scroll setContentOffset:offset animated:true];
+        [scroll setContentOffset:offset animated:YES];
     }
 }
 

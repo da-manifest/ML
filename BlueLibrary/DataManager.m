@@ -57,7 +57,7 @@
 {
     fileName = [NSHomeDirectory() stringByAppendingFormat:@"Documents/Cover Images/%@", fileName];
     NSData *data = UIImagePNGRepresentation(image);
-    [data writeToFile:fileName atomically:true];
+    [data writeToFile:fileName atomically:YES];
 }
 
 -(UIImage *)getImageFromFile:(NSString *)fileName

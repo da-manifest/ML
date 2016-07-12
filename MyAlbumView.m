@@ -26,7 +26,7 @@
         indicator = [UIActivityIndicatorView new];
         indicator.center = self.center;
         indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-        [indicator stopAnimating];
+        [indicator startAnimating];
         [self addSubview:indicator];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"BLDownloadImageNotification" object:self userInfo:@{@"coverUrl":albumCover, @"imageView":coverImage}];
         
